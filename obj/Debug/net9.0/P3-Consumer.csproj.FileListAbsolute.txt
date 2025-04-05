@@ -15,7 +15,6 @@ C:\Users\vinni\source\repos\P3-Consumer\obj\Debug\net9.0\P3-Consumer.RazorAssemb
 C:\Users\vinni\source\repos\P3-Consumer\obj\Debug\net9.0\P3-Consumer.RazorAssemblyInfo.cs
 C:\Users\vinni\source\repos\P3-Consumer\obj\Debug\net9.0\scopedcss\bundle\P3-Consumer.styles.css
 C:\Users\vinni\source\repos\P3-Consumer\obj\Debug\net9.0\compressed\db8skomup1-a2ss2y3xcg.gz
-C:\Users\vinni\source\repos\P3-Consumer\obj\Debug\net9.0\compressed\zruy5s14ok-vh8oidg0ju.gz
 C:\Users\vinni\source\repos\P3-Consumer\obj\Debug\net9.0\staticwebassets.build.json
 C:\Users\vinni\source\repos\P3-Consumer\obj\Debug\net9.0\staticwebassets.development.json
 C:\Users\vinni\source\repos\P3-Consumer\obj\Debug\net9.0\staticwebassets.build.endpoints.json
@@ -30,3 +29,5 @@ C:\Users\vinni\source\repos\P3-Consumer\obj\Debug\net9.0\refint\P3-Consumer.dll
 C:\Users\vinni\source\repos\P3-Consumer\obj\Debug\net9.0\P3-Consumer.pdb
 C:\Users\vinni\source\repos\P3-Consumer\obj\Debug\net9.0\P3-Consumer.genruntimeconfig.cache
 C:\Users\vinni\source\repos\P3-Consumer\obj\Debug\net9.0\ref\P3-Consumer.dll
+C:\Users\vinni\source\repos\P3-Consumer\obj\Debug\net9.0\P3-Consumer.sourcelink.json
+C:\Users\vinni\source\repos\P3-Consumer\obj\Debug\net9.0\compressed\zruy5s14ok-dte0td2e03.gz

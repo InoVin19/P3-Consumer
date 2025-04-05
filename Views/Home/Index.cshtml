@@ -46,13 +46,12 @@
                         <div class="row video-grid">
                             @foreach (var video in consumerGroup.Value)
                             {
-                                <div class="col-md-4 mb-4">
+                                <div class="col-md-10 mb-4">
                                     <div class="card video-card" data-video-id="@video.Id">
                                         <div class="card-img-top video-preview">
                                             <video 
-                                                class="preview-video" 
                                                 src="/video/@video.Id" 
-                                                preload="metadata"
+                                                preload="auto"
                                                 muted
                                                 playsinline>
                                                 Your browser does not support video playback.
@@ -124,198 +123,85 @@
 
 @section Scripts {
     <script src="~/js/signalr/dist/browser/signalr.js"></script>
+    <script src="~/js/site.js"></script>
     <script>
-        $(document).ready(function() {
-            // Set up SignalR connection
-            const connection = new signalR.HubConnectionBuilder()
-                .withUrl("/videoHub")
-                .build();
-                
-            // Handle queue update
-            connection.on("QueueUpdated", function(queueCount, queueLimit) {
-                $('#queueCount').text(queueCount);
-                $('#queueLimit').text(queueLimit);
-                
-                // Update progress bar
-                const percentage = queueLimit > 0 ? (queueCount * 100 / queueLimit) : 0;
-                $('.progress-bar').css('width', percentage + '%');
-            });
+        // Inline script to handle video hover events
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("INLINE SCRIPT: DOM loaded");
             
-            // Handle video uploaded
-            connection.on("VideoUploaded", function(video) {
-                // Update counts
-                const currentCount = parseInt($('#videoCount').text());
-                $('#videoCount').text(currentCount + 1);
-                $('#lastUpload').text(new Date(video.uploadTime).toLocaleString());
+            // Direct event handlers for each video card
+            const videoCards = document.querySelectorAll('.video-card');
+            console.log("INLINE SCRIPT: Found " + videoCards.length + " video cards");
+            
+            videoCards.forEach(function(card) {
+                console.log("INLINE SCRIPT: Setting up card", card);
                 
-                // Remove "no videos" message if present
-                $('#noVideosMessage').remove();
-                
-                // Get the consumer ID (using thread ID if available, or default to 1)
-                const consumerId = video.threadId || 1;
-                
-                // Find if we already have a section for this consumer
-                let consumerSection = $(`.card-header:contains("Consumer ${consumerId} Videos")`).closest('.row.mb-4');
-                
-                if (consumerSection.length === 0) {
-                    // Create new consumer group
-                    const consumerGroupHtml = `
-                        <div class="row mb-4">
-                            <div class="col-md-12">
-                                <div class="card">
-                                    <div class="card-header bg-secondary text-white">
-                                        <h3>Consumer ${consumerId} Videos</h3>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="row video-grid">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                    
-                    // Add the new consumer section before the no videos message or at the end of container
-                    $('.container').append(consumerGroupHtml);
-                    
-                    // Get the newly created consumer section
-                    consumerSection = $(`.card-header:contains("Consumer ${consumerId} Videos")`).closest('.row.mb-4');
+                // Get the video element
+                const video = card.querySelector('video');
+                if (!video) {
+                    console.log("INLINE SCRIPT: No video found in card");
+                    return;
                 }
                 
-                // Create the video card
-                const videoCard = `
-                    <div class="col-md-4 mb-4">
-                        <div class="card video-card" data-video-id="${video.id}">
-                            <div class="card-img-top video-preview">
-                                <video 
-                                    class="preview-video" 
-                                    src="/video/${video.id}" 
-                                    preload="metadata"
-                                    muted
-                                    playsinline>
-                                </video>
-                                <div class="hover-play-icon">
-                                    <i class="bi bi-play-circle-fill"></i>
-                                </div>
-                            </div>
-                            <div class="card-body">
-                                <h5 class="card-title">${video.fileName || `Video ${video.id}`}</h5>
-                                <p class="card-text">
-                                    <small class="text-muted">
-                                        Size: ${Math.round(video.fileSize / 1024)} KB<br />
-                                        Uploaded: ${new Date(video.uploadTime).toLocaleString()}
-                                    </small>
-                                </p>
-                                <button class="btn btn-primary btn-sm play-btn">
-                                    <i class="bi bi-play-fill"></i> Play
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                `;
+                console.log("INLINE SCRIPT: Found video", video);
                 
-                // Add the video card to the consumer section
-                consumerSection.find('.video-grid').prepend(videoCard);
+                // Preload the video
+                video.load();
                 
-                // Remove any "no videos" warning in this consumer section
-                consumerSection.find('.alert-warning').remove();
-                
-                setupVideoPreview();
-            });
-            
-            // Start the connection
-            connection.start().catch(function(err) {
-                console.error(err.toString());
-                alert("Could not connect to SignalR hub. Real-time updates will not work.");
-            });
-            
-            // Set up video preview functionality
-            function setupVideoPreview() {
-                // Force preload all videos
-                $('.preview-video').each(function() {
-                    $(this).attr('preload', 'metadata');
-                    // Try to load the video
-                    this.load();
-                });
-                
-                // Handle hover on video cards
-                $('.video-card').hover(
-                    function() {
-                        const video = $(this).find('video')[0];
-                        if (video) {
-                            try {
-                                // Make sure video is visible
-                                $(video).css('opacity', '1');
-                                // Reset to beginning
-                                video.currentTime = 0;
-                                // Ensure it's muted
-                                video.muted = true;
-                                video.volume = 0;
-                                
-                                // Play the video
-                                const playPromise = video.play();
-                                if (playPromise !== undefined) {
-                                    playPromise.then(_ => {
-                                        // Playback started successfully
-                                        console.log('Video preview started');
-                                    })
-                                    .catch(error => {
-                                        console.error('Error playing video preview:', error);
-                                    });
-                                }
-                            } catch (e) {
-                                console.error('Error setting up video preview:', e);
-                            }
-                        }
-                    },
-                    function() {
-                        // On mouse leave
-                        const video = $(this).find('video')[0];
-                        if (video) {
+                // Add mouseenter event
+                card.addEventListener('mouseenter', function() {
+                    console.log("INLINE SCRIPT: Mouse entered card");
+                    video.currentTime = 0;
+                    video.muted = true;
+                    
+                    // Play the video
+                    const playPromise = video.play();
+                    if (playPromise !== undefined) {
+                        playPromise.then(_ => {
+                            console.log("INLINE SCRIPT: Video playing successfully");
+                        }).catch(error => {
+                            console.error("INLINE SCRIPT: Error playing video", error);
+                        });
+                    }
+                    
+                    // Stop after 10 seconds
+                    setTimeout(function() {
+                        if (!video.paused) {
+                            console.log("INLINE SCRIPT: 10 seconds reached, pausing");
                             video.pause();
-                            // Reset to beginning for next hover
-                            video.currentTime = 0;
                         }
-                    }
-                );
-                
-                // Stop preview after 10 seconds
-                $('.preview-video').on('timeupdate', function() {
-                    if (this.currentTime >= 10) {
-                        this.pause();
-                        this.currentTime = 0;
-                    }
+                    }, 10000);
                 });
                 
-                // Handle play button click
-                $('.play-btn').click(function(e) {
-                    e.stopPropagation();
-                    const videoId = $(this).closest('.video-card').data('video-id');
-                    const videoTitle = $(this).closest('.video-card').find('.card-title').text();
-                    
-                    // Set modal title and video source
-                    $('#videoPlayerModalLabel').text(videoTitle);
-                    $('#modalVideoPlayer').attr('src', `/video/${videoId}`);
-                    
-                    // Show the modal
-                    const videoModal = new bootstrap.Modal(document.getElementById('videoPlayerModal'));
-                    videoModal.show();
-                    
-                    // Pause any preview videos
-                    $('.preview-video').each(function() {
-                        this.pause();
-                    });
+                // Add mouseleave event
+                card.addEventListener('mouseleave', function() {
+                    console.log("INLINE SCRIPT: Mouse left card");
+                    video.pause();
+                    video.currentTime = 0;
                 });
-                
-                // Pause modal video when modal is closed
-                $('#videoPlayerModal').on('hidden.bs.modal', function () {
-                    $('#modalVideoPlayer')[0].pause();
-                    $('#modalVideoPlayer')[0].currentTime = 0;
-                });
-            }
+            });
             
-            // Initial setup
-            setupVideoPreview();
+            // Handle play button clicks
+            document.querySelectorAll('.play-btn').forEach(function(btn) {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    const card = this.closest('.video-card');
+                    const videoId = card.dataset.videoId;
+                    const title = card.querySelector('.card-title').textContent;
+                    
+                    console.log("INLINE SCRIPT: Play button clicked for", videoId);
+                    
+                    // Set modal content
+                    document.getElementById('videoPlayerModalLabel').textContent = title;
+                    document.getElementById('modalVideoPlayer').src = '/video/' + videoId;
+                    
+                    // Show modal
+                    const modal = new bootstrap.Modal(document.getElementById('videoPlayerModal'));
+                    modal.show();
+                });
+            });
         });
     </script>
 }
@@ -339,7 +225,7 @@
         
         .video-preview {
             position: relative;
-            height: 180px;
+            height: 240px;
             background-color: #000;
             overflow: hidden;
             display: flex;
@@ -347,7 +233,7 @@
             justify-content: center;
         }
         
-        .preview-video {
+        .video-preview video {
             width: 100%;
             height: 100%;
             object-fit: contain;
@@ -358,7 +244,7 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            font-size: 3rem;
+            font-size: 4rem;
             color: rgba(255, 255, 255, 0.8);
             opacity: 0;
             transition: opacity 0.3s;
