@@ -26,11 +26,15 @@ namespace Consumer.Services
         {
             try
             {
-                // Try to read from config file first
-                if (File.Exists("config.txt"))
+                // Get the current directory and check for input.txt
+                string currentDirectory = Directory.GetCurrentDirectory();
+                string inputFilePath = Path.Combine(currentDirectory, "input.txt");
+                
+                // Try to read from input.txt first
+                if (File.Exists(inputFilePath))
                 {
-                    _logger.LogInformation("Reading configuration from config.txt");
-                    string[] lines = File.ReadAllLines("config.txt");
+                    _logger.LogInformation($"Reading configuration from {inputFilePath}");
+                    string[] lines = File.ReadAllLines(inputFilePath);
                     
                     foreach (var line in lines)
                     {
@@ -44,12 +48,16 @@ namespace Consumer.Services
                             {
                                 case "c":
                                     ConsumerCount = int.Parse(value);
+                                    _logger.LogInformation($"Set ConsumerCount to {ConsumerCount} from input.txt");
                                     break;
                                 case "q":
                                     QueueLimit = int.Parse(value);
+                                    _logger.LogInformation($"Set QueueLimit to {QueueLimit} from input.txt");
                                     break;
+                                case "p":
                                 case "port":
                                     BasePort = int.Parse(value);
+                                    _logger.LogInformation($"Set BasePort to {BasePort} from input.txt");
                                     break;
                             }
                         }
@@ -58,7 +66,7 @@ namespace Consumer.Services
                 else
                 {
                     // Fall back to appsettings.json
-                    _logger.LogInformation("Reading configuration from appsettings.json");
+                    _logger.LogInformation($"Input file not found at {inputFilePath}, reading from appsettings.json");
                 }
 
                 // If values are still default, read from appsettings.json

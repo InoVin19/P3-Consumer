@@ -56,17 +56,20 @@ namespace Consumer.Services
                     
                     if (videoUpload != null)
                     {
-                        _logger.LogInformation($"Consumer {consumerId} processing video: {videoUpload.Metadata.FileName}");
+                        _logger.LogInformation($"Consumer {consumerId} processing video: {videoUpload.Metadata?.FileName ?? "Unknown"}");
                         
                         try
                         {
+                            // Set the ThreadId to track which consumer processed this video
+                            videoUpload.ThreadId = consumerId;
+                            
                             // Process and save the video
                             await _videoStorageService.SaveVideoAsync(videoUpload);
-                            _logger.LogInformation($"Consumer {consumerId} completed processing video: {videoUpload.Metadata.FileName}");
+                            _logger.LogInformation($"Consumer {consumerId} completed processing video: {videoUpload.Metadata?.FileName ?? "Unknown"}");
                         }
                         catch (Exception ex)
                         {
-                            _logger.LogError(ex, $"Consumer {consumerId} error processing video: {videoUpload.Metadata.FileName}");
+                            _logger.LogError(ex, $"Consumer {consumerId} error processing video: {videoUpload.Metadata?.FileName ?? "Unknown"}");
                         }
                     }
                     else

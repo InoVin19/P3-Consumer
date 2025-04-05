@@ -14,15 +14,18 @@ namespace Consumer.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly VideoStorageService _videoStorageService;
         private readonly QueueManager _queueManager;
+        private readonly ConfigService _configService;
 
         public HomeController(
             ILogger<HomeController> logger,
             VideoStorageService videoStorageService,
-            QueueManager queueManager)
+            QueueManager queueManager,
+            ConfigService configService)
         {
             _logger = logger;
             _videoStorageService = videoStorageService;
             _queueManager = queueManager;
+            _configService = configService;
         }
 
         public IActionResult Index()
@@ -30,14 +33,22 @@ namespace Consumer.Controllers
             var allVideos = _videoStorageService.GetAllVideos();
             ViewBag.QueueCount = _queueManager.GetQueueCount();
             ViewBag.QueueLimit = _queueManager.GetMaxQueueSize();
+            ViewBag.ConsumerCount = _configService.ConsumerCount;
             
-            // Group videos by thread ID (using a hash of the ID as a simple way to assign thread IDs)
+            // Group videos by their ThreadId property
             var groupedVideos = new Dictionary<int, List<VideoUpload>>();
             
             foreach (var video in allVideos)
             {
-                // Use a simple hash of the GUID to determine a thread ID (1 or 2)
-                int threadId = (video.Id.GetHashCode() % 2) + 1;
+                // Use the actual ThreadId from the video
+                int threadId = video.ThreadId;
+                
+                // Ensure the threadId is valid (between 1 and ConsumerCount)
+                if (threadId < 1 || threadId > _configService.ConsumerCount)
+                {
+                    threadId = 1; // Default to 1 if invalid
+                    _logger.LogWarning($"Invalid ThreadId {video.ThreadId} detected for video {video.Id}. Using default of 1.");
+                }
                 
                 if (!groupedVideos.ContainsKey(threadId))
                 {
@@ -47,15 +58,13 @@ namespace Consumer.Controllers
                 groupedVideos[threadId].Add(video);
             }
             
-            // Make sure we have entries for all thread IDs (1 and 2) even if empty
-            if (!groupedVideos.ContainsKey(1))
+            // Make sure we have entries for all thread IDs (1 to ConsumerCount) even if empty
+            for (int i = 1; i <= _configService.ConsumerCount; i++)
             {
-                groupedVideos[1] = new List<VideoUpload>();
-            }
-            
-            if (!groupedVideos.ContainsKey(2))
-            {
-                groupedVideos[2] = new List<VideoUpload>();
+                if (!groupedVideos.ContainsKey(i))
+                {
+                    groupedVideos[i] = new List<VideoUpload>();
+                }
             }
             
             return View(groupedVideos);
