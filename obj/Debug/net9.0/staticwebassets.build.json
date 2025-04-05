@@ -1,0 +1,702 @@
+{
+  "Version": 1,
+  "Hash": "h/cu9F2SrOCZWU+5pFS55j4rk3ZNqB0ESk7yE0QunTs=",
+  "Source": "P3-Consumer",
+  "BasePath": "_content/P3-Consumer",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "P3-Consumer\\wwwroot",
+      "Source": "P3-Consumer",
+      "ContentRoot": "C:\\Users\\vinni\\source\\repos\\P3-Consumer\\wwwroot\\",
+      "BasePath": "_content/P3-Consumer",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "C:\\Users\\vinni\\source\\repos\\P3-Consumer\\obj\\Debug\\net9.0\\compressed\\db8skomup1-a2ss2y3xcg.gz",
+      "SourceId": "P3-Consumer",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\vinni\\source\\repos\\P3-Consumer\\obj\\Debug\\net9.0\\compressed\\",
+      "BasePath": "_content/P3-Consumer",
+      "RelativePath": "css/site#[.{fingerprint=a2ss2y3xcg}]?.css.gz",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Alternative",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "C:\\Users\\vinni\\source\\repos\\P3-Consumer\\wwwroot\\css\\site.css",
+      "AssetTraitName": "Content-Encoding",
+      "AssetTraitValue": "gzip",
+      "Fingerprint": "xp94fq9rwa",
+      "Integrity": "NXGI6pFiPZw232t01J8MWuyHjiZwRMImkNPpeh7/M/E=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "C:\\Users\\vinni\\source\\repos\\P3-Consumer\\wwwroot\\css\\site.css"
+    },
+    {
+      "Identity": "C:\\Users\\vinni\\source\\repos\\P3-Consumer\\obj\\Debug\\net9.0\\compressed\\zruy5s14ok-vh8oidg0ju.gz",
+      "SourceId": "P3-Consumer",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\vinni\\source\\repos\\P3-Consumer\\obj\\Debug\\net9.0\\compressed\\",
+      "BasePath": "_content/P3-Consumer",
+      "RelativePath": "js/site#[.{fingerprint=vh8oidg0ju}]?.js.gz",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Alternative",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "C:\\Users\\vinni\\source\\repos\\P3-Consumer\\wwwroot\\js\\site.js",
+      "AssetTraitName": "Content-Encoding",
+      "AssetTraitValue": "gzip",
+      "Fingerprint": "lnmlpj1cxg",
+      "Integrity": "8VolzQHXpj0TGL/LdBKN8IKOPliGFvIJRs9wOVUoB6o=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "C:\\Users\\vinni\\source\\repos\\P3-Consumer\\wwwroot\\js\\site.js"
+    },
+    {
+      "Identity": "C:\\Users\\vinni\\source\\repos\\P3-Consumer\\wwwroot\\css\\site.css",
+      "SourceId": "P3-Consumer",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\vinni\\source\\repos\\P3-Consumer\\wwwroot\\",
+      "BasePath": "_content/P3-Consumer",
+      "RelativePath": "css/site#[.{fingerprint}]?.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "a2ss2y3xcg",
+      "Integrity": "7ghfqc/rgNSLbeX7fO9Z/ntsJA6kWrjjIFaEc8Q4PEc=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\site.css"
+    },
+    {
+      "Identity": "C:\\Users\\vinni\\source\\repos\\P3-Consumer\\wwwroot\\js\\site.js",
+      "SourceId": "P3-Consumer",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\vinni\\source\\repos\\P3-Consumer\\wwwroot\\",
+      "BasePath": "_content/P3-Consumer",
+      "RelativePath": "js/site#[.{fingerprint}]?.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "vh8oidg0ju",
+      "Integrity": "A+dEyTlqTlElhxAgP/930iOK9rM1gI+60lqnSBPIXhY=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\site.js"
+    }
+  ],
+  "Endpoints": [
+    {
+      "Route": "css/site.a2ss2y3xcg.css",
+      "AssetFile": "C:\\Users\\vinni\\source\\repos\\P3-Consumer\\obj\\Debug\\net9.0\\compressed\\db8skomup1-a2ss2y3xcg.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.001706484642"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "585"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"NXGI6pFiPZw232t01J8MWuyHjiZwRMImkNPpeh7/M/E=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 05 Apr 2025 07:35:03 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"7ghfqc/rgNSLbeX7fO9Z/ntsJA6kWrjjIFaEc8Q4PEc=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "a2ss2y3xcg"
+        },
+        {
+          "Name": "label",
+          "Value": "css/site.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-7ghfqc/rgNSLbeX7fO9Z/ntsJA6kWrjjIFaEc8Q4PEc="
+        }
+      ]
+    },
+    {
+      "Route": "css/site.a2ss2y3xcg.css",
+      "AssetFile": "C:\\Users\\vinni\\source\\repos\\P3-Consumer\\wwwroot\\css\\site.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1426"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"7ghfqc/rgNSLbeX7fO9Z/ntsJA6kWrjjIFaEc8Q4PEc=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 05 Apr 2025 07:35:03 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "a2ss2y3xcg"
+        },
+        {
+          "Name": "label",
+          "Value": "css/site.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-7ghfqc/rgNSLbeX7fO9Z/ntsJA6kWrjjIFaEc8Q4PEc="
+        }
+      ]
+    },
+    {
+      "Route": "css/site.a2ss2y3xcg.css.gz",
+      "AssetFile": "C:\\Users\\vinni\\source\\repos\\P3-Consumer\\obj\\Debug\\net9.0\\compressed\\db8skomup1-a2ss2y3xcg.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "585"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"NXGI6pFiPZw232t01J8MWuyHjiZwRMImkNPpeh7/M/E=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 05 Apr 2025 07:35:03 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "a2ss2y3xcg"
+        },
+        {
+          "Name": "label",
+          "Value": "css/site.css.gz"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-NXGI6pFiPZw232t01J8MWuyHjiZwRMImkNPpeh7/M/E="
+        }
+      ]
+    },
+    {
+      "Route": "css/site.css",
+      "AssetFile": "C:\\Users\\vinni\\source\\repos\\P3-Consumer\\obj\\Debug\\net9.0\\compressed\\db8skomup1-a2ss2y3xcg.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.001706484642"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "585"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"NXGI6pFiPZw232t01J8MWuyHjiZwRMImkNPpeh7/M/E=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 05 Apr 2025 07:35:03 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"7ghfqc/rgNSLbeX7fO9Z/ntsJA6kWrjjIFaEc8Q4PEc=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-7ghfqc/rgNSLbeX7fO9Z/ntsJA6kWrjjIFaEc8Q4PEc="
+        }
+      ]
+    },
+    {
+      "Route": "css/site.css",
+      "AssetFile": "C:\\Users\\vinni\\source\\repos\\P3-Consumer\\wwwroot\\css\\site.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1426"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"7ghfqc/rgNSLbeX7fO9Z/ntsJA6kWrjjIFaEc8Q4PEc=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 05 Apr 2025 07:35:03 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-7ghfqc/rgNSLbeX7fO9Z/ntsJA6kWrjjIFaEc8Q4PEc="
+        }
+      ]
+    },
+    {
+      "Route": "css/site.css.gz",
+      "AssetFile": "C:\\Users\\vinni\\source\\repos\\P3-Consumer\\obj\\Debug\\net9.0\\compressed\\db8skomup1-a2ss2y3xcg.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "585"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"NXGI6pFiPZw232t01J8MWuyHjiZwRMImkNPpeh7/M/E=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 05 Apr 2025 07:35:03 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-NXGI6pFiPZw232t01J8MWuyHjiZwRMImkNPpeh7/M/E="
+        }
+      ]
+    },
+    {
+      "Route": "js/site.js",
+      "AssetFile": "C:\\Users\\vinni\\source\\repos\\P3-Consumer\\obj\\Debug\\net9.0\\compressed\\zruy5s14ok-vh8oidg0ju.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.001084598698"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "921"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"8VolzQHXpj0TGL/LdBKN8IKOPliGFvIJRs9wOVUoB6o=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 05 Apr 2025 07:35:17 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"A+dEyTlqTlElhxAgP/930iOK9rM1gI+60lqnSBPIXhY=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-A+dEyTlqTlElhxAgP/930iOK9rM1gI+60lqnSBPIXhY="
+        }
+      ]
+    },
+    {
+      "Route": "js/site.js",
+      "AssetFile": "C:\\Users\\vinni\\source\\repos\\P3-Consumer\\wwwroot\\js\\site.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2506"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"A+dEyTlqTlElhxAgP/930iOK9rM1gI+60lqnSBPIXhY=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 05 Apr 2025 07:35:17 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-A+dEyTlqTlElhxAgP/930iOK9rM1gI+60lqnSBPIXhY="
+        }
+      ]
+    },
+    {
+      "Route": "js/site.js.gz",
+      "AssetFile": "C:\\Users\\vinni\\source\\repos\\P3-Consumer\\obj\\Debug\\net9.0\\compressed\\zruy5s14ok-vh8oidg0ju.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "921"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"8VolzQHXpj0TGL/LdBKN8IKOPliGFvIJRs9wOVUoB6o=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 05 Apr 2025 07:35:17 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-8VolzQHXpj0TGL/LdBKN8IKOPliGFvIJRs9wOVUoB6o="
+        }
+      ]
+    },
+    {
+      "Route": "js/site.vh8oidg0ju.js",
+      "AssetFile": "C:\\Users\\vinni\\source\\repos\\P3-Consumer\\obj\\Debug\\net9.0\\compressed\\zruy5s14ok-vh8oidg0ju.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.001084598698"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "921"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"8VolzQHXpj0TGL/LdBKN8IKOPliGFvIJRs9wOVUoB6o=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 05 Apr 2025 07:35:17 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"A+dEyTlqTlElhxAgP/930iOK9rM1gI+60lqnSBPIXhY=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "vh8oidg0ju"
+        },
+        {
+          "Name": "label",
+          "Value": "js/site.js"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-A+dEyTlqTlElhxAgP/930iOK9rM1gI+60lqnSBPIXhY="
+        }
+      ]
+    },
+    {
+      "Route": "js/site.vh8oidg0ju.js",
+      "AssetFile": "C:\\Users\\vinni\\source\\repos\\P3-Consumer\\wwwroot\\js\\site.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2506"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"A+dEyTlqTlElhxAgP/930iOK9rM1gI+60lqnSBPIXhY=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 05 Apr 2025 07:35:17 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "vh8oidg0ju"
+        },
+        {
+          "Name": "label",
+          "Value": "js/site.js"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-A+dEyTlqTlElhxAgP/930iOK9rM1gI+60lqnSBPIXhY="
+        }
+      ]
+    },
+    {
+      "Route": "js/site.vh8oidg0ju.js.gz",
+      "AssetFile": "C:\\Users\\vinni\\source\\repos\\P3-Consumer\\obj\\Debug\\net9.0\\compressed\\zruy5s14ok-vh8oidg0ju.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "921"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"8VolzQHXpj0TGL/LdBKN8IKOPliGFvIJRs9wOVUoB6o=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 05 Apr 2025 07:35:17 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "vh8oidg0ju"
+        },
+        {
+          "Name": "label",
+          "Value": "js/site.js.gz"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-8VolzQHXpj0TGL/LdBKN8IKOPliGFvIJRs9wOVUoB6o="
+        }
+      ]
+    }
+  ]
+}

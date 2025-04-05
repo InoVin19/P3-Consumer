@@ -1,0 +1,390 @@
+@model Dictionary<int, List<Consumer.Models.VideoUpload>>
+@{
+    ViewData["Title"] = "Video Consumer";
+}
+
+<div class="container">
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h2>Video Consumer Dashboard</h2>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="alert alert-info">
+                                <h4>Queue Status</h4>
+                                <p>Videos in Queue: <span id="queueCount">@ViewBag.QueueCount</span> / <span id="queueLimit">@ViewBag.QueueLimit</span></p>
+                                <div class="progress">
+                                    <div class="progress-bar" role="progressbar" style="width: @(ViewBag.QueueCount * 100 / (ViewBag.QueueLimit > 0 ? ViewBag.QueueLimit : 1))%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="alert alert-success">
+                                <h4>Upload Status</h4>
+                                <p>Total Videos: <span id="videoCount">@Model.Values.SelectMany(v => v).Count()</span></p>
+                                <p>Last Upload: <span id="lastUpload">@(Model.Values.SelectMany(v => v).Any() ? Model.Values.SelectMany(v => v).Max(v => v.UploadTime).ToString("g") : "None")</span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @foreach (var consumerGroup in Model)
+    {
+        <div class="row mb-4">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header bg-secondary text-white">
+                        <h3>Consumer @consumerGroup.Key Videos</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="row video-grid">
+                            @foreach (var video in consumerGroup.Value)
+                            {
+                                <div class="col-md-4 mb-4">
+                                    <div class="card video-card" data-video-id="@video.Id">
+                                        <div class="card-img-top video-preview">
+                                            <video 
+                                                class="preview-video" 
+                                                src="/video/@video.Id" 
+                                                preload="metadata"
+                                                muted
+                                                playsinline>
+                                                Your browser does not support video playback.
+                                            </video>
+                                            <div class="hover-play-icon">
+                                                <i class="bi bi-play-circle-fill"></i>
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <h5 class="card-title">@(string.IsNullOrEmpty(video.Metadata?.FileName) ? $"Video {video.Id}" : video.Metadata.FileName)</h5>
+                                            <p class="card-text">
+                                                <small class="text-muted">
+                                                    @if (video.Metadata != null)
+                                                    {
+                                                        <span>Size: @(video.Metadata.FileSize / 1024) KB<br /></span>
+                                                    }
+                                                    <span>Uploaded: @video.UploadTime.ToString("g")</span>
+                                                </small>
+                                            </p>
+                                            <button class="btn btn-primary btn-sm play-btn">
+                                                <i class="bi bi-play-fill"></i> Play
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                        
+                        @if (!consumerGroup.Value.Any())
+                        {
+                            <div class="alert alert-warning">
+                                <p>No videos have been processed by Consumer @consumerGroup.Key yet.</p>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    
+    @if (!Model.Any())
+    {
+        <div class="row">
+            <div class="col-md-12">
+                <div class="alert alert-warning" id="noVideosMessage">
+                    <p>No videos have been uploaded yet. Videos will appear here when producers upload them.</p>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<!-- Video Player Modal -->
+<div class="modal fade" id="videoPlayerModal" tabindex="-1" aria-labelledby="videoPlayerModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="videoPlayerModalLabel">Video Player</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <video id="modalVideoPlayer" class="w-100" controls>
+                    Your browser does not support video playback.
+                </video>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/signalr/dist/browser/signalr.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Set up SignalR connection
+            const connection = new signalR.HubConnectionBuilder()
+                .withUrl("/videoHub")
+                .build();
+                
+            // Handle queue update
+            connection.on("QueueUpdated", function(queueCount, queueLimit) {
+                $('#queueCount').text(queueCount);
+                $('#queueLimit').text(queueLimit);
+                
+                // Update progress bar
+                const percentage = queueLimit > 0 ? (queueCount * 100 / queueLimit) : 0;
+                $('.progress-bar').css('width', percentage + '%');
+            });
+            
+            // Handle video uploaded
+            connection.on("VideoUploaded", function(video) {
+                // Update counts
+                const currentCount = parseInt($('#videoCount').text());
+                $('#videoCount').text(currentCount + 1);
+                $('#lastUpload').text(new Date(video.uploadTime).toLocaleString());
+                
+                // Remove "no videos" message if present
+                $('#noVideosMessage').remove();
+                
+                // Get the consumer ID (using thread ID if available, or default to 1)
+                const consumerId = video.threadId || 1;
+                
+                // Find if we already have a section for this consumer
+                let consumerSection = $(`.card-header:contains("Consumer ${consumerId} Videos")`).closest('.row.mb-4');
+                
+                if (consumerSection.length === 0) {
+                    // Create new consumer group
+                    const consumerGroupHtml = `
+                        <div class="row mb-4">
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-header bg-secondary text-white">
+                                        <h3>Consumer ${consumerId} Videos</h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row video-grid">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    
+                    // Add the new consumer section before the no videos message or at the end of container
+                    $('.container').append(consumerGroupHtml);
+                    
+                    // Get the newly created consumer section
+                    consumerSection = $(`.card-header:contains("Consumer ${consumerId} Videos")`).closest('.row.mb-4');
+                }
+                
+                // Create the video card
+                const videoCard = `
+                    <div class="col-md-4 mb-4">
+                        <div class="card video-card" data-video-id="${video.id}">
+                            <div class="card-img-top video-preview">
+                                <video 
+                                    class="preview-video" 
+                                    src="/video/${video.id}" 
+                                    preload="metadata"
+                                    muted
+                                    playsinline>
+                                </video>
+                                <div class="hover-play-icon">
+                                    <i class="bi bi-play-circle-fill"></i>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">${video.fileName || `Video ${video.id}`}</h5>
+                                <p class="card-text">
+                                    <small class="text-muted">
+                                        Size: ${Math.round(video.fileSize / 1024)} KB<br />
+                                        Uploaded: ${new Date(video.uploadTime).toLocaleString()}
+                                    </small>
+                                </p>
+                                <button class="btn btn-primary btn-sm play-btn">
+                                    <i class="bi bi-play-fill"></i> Play
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                // Add the video card to the consumer section
+                consumerSection.find('.video-grid').prepend(videoCard);
+                
+                // Remove any "no videos" warning in this consumer section
+                consumerSection.find('.alert-warning').remove();
+                
+                setupVideoPreview();
+            });
+            
+            // Start the connection
+            connection.start().catch(function(err) {
+                console.error(err.toString());
+                alert("Could not connect to SignalR hub. Real-time updates will not work.");
+            });
+            
+            // Set up video preview functionality
+            function setupVideoPreview() {
+                // Force preload all videos
+                $('.preview-video').each(function() {
+                    $(this).attr('preload', 'metadata');
+                    // Try to load the video
+                    this.load();
+                });
+                
+                // Handle hover on video cards
+                $('.video-card').hover(
+                    function() {
+                        const video = $(this).find('video')[0];
+                        if (video) {
+                            try {
+                                // Make sure video is visible
+                                $(video).css('opacity', '1');
+                                // Reset to beginning
+                                video.currentTime = 0;
+                                // Ensure it's muted
+                                video.muted = true;
+                                video.volume = 0;
+                                
+                                // Play the video
+                                const playPromise = video.play();
+                                if (playPromise !== undefined) {
+                                    playPromise.then(_ => {
+                                        // Playback started successfully
+                                        console.log('Video preview started');
+                                    })
+                                    .catch(error => {
+                                        console.error('Error playing video preview:', error);
+                                    });
+                                }
+                            } catch (e) {
+                                console.error('Error setting up video preview:', e);
+                            }
+                        }
+                    },
+                    function() {
+                        // On mouse leave
+                        const video = $(this).find('video')[0];
+                        if (video) {
+                            video.pause();
+                            // Reset to beginning for next hover
+                            video.currentTime = 0;
+                        }
+                    }
+                );
+                
+                // Stop preview after 10 seconds
+                $('.preview-video').on('timeupdate', function() {
+                    if (this.currentTime >= 10) {
+                        this.pause();
+                        this.currentTime = 0;
+                    }
+                });
+                
+                // Handle play button click
+                $('.play-btn').click(function(e) {
+                    e.stopPropagation();
+                    const videoId = $(this).closest('.video-card').data('video-id');
+                    const videoTitle = $(this).closest('.video-card').find('.card-title').text();
+                    
+                    // Set modal title and video source
+                    $('#videoPlayerModalLabel').text(videoTitle);
+                    $('#modalVideoPlayer').attr('src', `/video/${videoId}`);
+                    
+                    // Show the modal
+                    const videoModal = new bootstrap.Modal(document.getElementById('videoPlayerModal'));
+                    videoModal.show();
+                    
+                    // Pause any preview videos
+                    $('.preview-video').each(function() {
+                        this.pause();
+                    });
+                });
+                
+                // Pause modal video when modal is closed
+                $('#videoPlayerModal').on('hidden.bs.modal', function () {
+                    $('#modalVideoPlayer')[0].pause();
+                    $('#modalVideoPlayer')[0].currentTime = 0;
+                });
+            }
+            
+            // Initial setup
+            setupVideoPreview();
+        });
+    </script>
+}
+
+@section Styles {
+    <style>
+        .video-card {
+            cursor: pointer;
+            transition: transform 0.2s;
+            width: 100%;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .video-card:hover {
+            transform: scale(1.03);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        }
+        
+        .video-preview {
+            position: relative;
+            height: 180px;
+            background-color: #000;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .preview-video {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        
+        .hover-play-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 3rem;
+            color: rgba(255, 255, 255, 0.8);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .video-card:hover .hover-play-icon {
+            opacity: 1;
+        }
+        
+        .card-body {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .card-text {
+            flex: 1;
+        }
+        
+        .progress {
+            height: 10px;
+            margin-top: 5px;
+        }
+        
+        .progress-bar {
+            background-color: #28a745;
+        }
+    </style>
+}
