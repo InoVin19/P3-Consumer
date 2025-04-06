@@ -17,6 +17,7 @@ namespace Consumer.Models
         public byte[] VideoData { get; set; }
         public string StoragePath { get; set; }
         public DateTime UploadTime { get; set; }
+        public DateTime? ProcessedTime { get; set; }
         public bool IsProcessed { get; set; }
         public int ThreadId { get; set; }
 

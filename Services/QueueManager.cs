@@ -2,6 +2,7 @@ using System;
 using System.Collections.Concurrent;
 using System.Threading;
 using System.Threading.Tasks;
+using Consumer.Hubs;
 using Consumer.Models;
 using Microsoft.Extensions.Logging;
 
@@ -28,6 +29,9 @@ namespace Consumer.Services
         {
             _maxQueueSize = maxSize;
             LogMessage($"*** QUEUE LIMIT EXPLICITLY SET TO {maxSize} ***", LogLevel.Information);
+            
+            // Send initial queue update
+            _ = VideoHub.SendQueueUpdate(0, _maxQueueSize);
         }
 
         // Helper method to log both to console and logger
@@ -69,12 +73,20 @@ namespace Consumer.Services
                     if (currentCount >= _maxQueueSize)
                     {
                         LogMessage($"*** QUEUE FULL: {currentCount}/{_maxQueueSize} - Dropping video: {videoUpload.Metadata.FileName} ***", LogLevel.Warning);
+                        
+                        // Send notification that video was dropped
+                        _ = VideoHub.SendVideoDropped(videoUpload.Metadata.FileName);
+                        
                         return false;
                     }
                     
                     // Add to queue
                     _queue.Enqueue(videoUpload);
                     LogMessage($"Video added to queue: {videoUpload.Metadata.FileName}, new queue size: {_queue.Count}/{_maxQueueSize}", LogLevel.Information);
+                    
+                    // Send queue update notification
+                    _ = VideoHub.SendQueueUpdate(_queue.Count, _maxQueueSize);
+                    
                     return true;
                 }
                 finally
@@ -86,7 +98,8 @@ namespace Consumer.Services
             catch (Exception ex)
             {
                 string errorMessage = $"Error adding video to queue: {videoUpload.Metadata.FileName}";
-                LogMessage($"{errorMessage}: {ex.Message}", LogLevel.Error);
+                Console.WriteLine($"{errorMessage}: {ex.Message}");
+                _logger.LogError(ex, errorMessage);
                 return false;
             }
         }
@@ -120,6 +133,9 @@ namespace Consumer.Services
                         {
                             LogMessage($"Video dequeued for processing: {videoUpload.Metadata.FileName}, new queue size: {_queue.Count}/{_maxQueueSize}", LogLevel.Information);
                             
+                            // Send queue update notification
+                            _ = VideoHub.SendQueueUpdate(_queue.Count, _maxQueueSize);
+                            
                             // Release semaphore before returning
                             _queueSemaphore.Release();
                             semaphoreAcquired = false;
@@ -146,7 +162,8 @@ namespace Consumer.Services
             catch (Exception ex)
             {
                 string errorMessage = "Error dequeuing video";
-                LogMessage($"{errorMessage}: {ex.Message}", LogLevel.Error);
+                Console.WriteLine($"{errorMessage}: {ex.Message}");
+                _logger.LogError(ex, errorMessage);
                 return null;
             }
         }
@@ -158,7 +175,7 @@ namespace Consumer.Services
 
         public int GetMaxQueueSize()
         {
-            LogMessage($"GetMaxQueueSize called, returning: {_maxQueueSize}", LogLevel.Information);
+            Console.WriteLine($"GetMaxQueueSize called, returning: {_maxQueueSize}");
             return _maxQueueSize;
         }
     }

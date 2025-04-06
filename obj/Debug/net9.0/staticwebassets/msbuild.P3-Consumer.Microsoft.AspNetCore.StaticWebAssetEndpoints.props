@@ -24,5 +24,17 @@
       <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-AXyThzy\u002BFKFgXjv5T\u002BOm\u002BjD3u9j7PVs8r56f73m0/iI="}]]]></EndpointProperties>
       <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"9394"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u0022AXyThzy\u002BFKFgXjv5T\u002BOm\u002BjD3u9j7PVs8r56f73m0/iI=\u0022"},{"Name":"Last-Modified","Value":"Sat, 05 Apr 2025 17:52:23 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/P3-Consumer/lib/signalr/signalr.min.js">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\lib\signalr\signalr.min.js'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-4opyCjWbN8sBV1jVQ/kIcw7Vu\u002BR42wlQa7aIfxgxNTg="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"47647"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u00224opyCjWbN8sBV1jVQ/kIcw7Vu\u002BR42wlQa7aIfxgxNTg=\u0022"},{"Name":"Last-Modified","Value":"Sun, 06 Apr 2025 17:38:34 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/P3-Consumer/lib/signalr/signalr.min.m3i9f6419i.js">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\lib\signalr\signalr.min.js'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"m3i9f6419i"},{"Name":"integrity","Value":"sha256-4opyCjWbN8sBV1jVQ/kIcw7Vu\u002BR42wlQa7aIfxgxNTg="},{"Name":"label","Value":"_content/P3-Consumer/lib/signalr/signalr.min.js"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"47647"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u00224opyCjWbN8sBV1jVQ/kIcw7Vu\u002BR42wlQa7aIfxgxNTg=\u0022"},{"Name":"Last-Modified","Value":"Sun, 06 Apr 2025 17:38:34 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
   </ItemGroup>
 </Project>

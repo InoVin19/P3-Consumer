@@ -3,6 +3,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Consumer.Models;
 using Consumer.Hubs;
@@ -55,7 +56,7 @@ namespace Consumer.Services
             }
         }
 
-        public async Task<VideoUpload> SaveVideoAsync(VideoUpload videoUpload)
+        public async Task<VideoUpload> SaveVideoAsync(VideoUpload videoUpload, int consumerId = 0, CancellationToken cancellationToken = default)
         {
             try
             {
@@ -81,7 +82,7 @@ namespace Consumer.Services
                 string filePath = Path.Combine(consumerPath, fileName);
                 
                 // Save video data to file
-                await File.WriteAllBytesAsync(filePath, videoUpload.VideoData);
+                await File.WriteAllBytesAsync(filePath, videoUpload.VideoData, cancellationToken);
                 
                 // Update video upload with storage path
                 videoUpload.StoragePath = filePath;

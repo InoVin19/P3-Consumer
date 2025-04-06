@@ -9,6 +9,10 @@
       "PackagePath": "staticwebassets\\js\\site.js"
     },
     {
+      "Id": "C:\\Users\\vinni\\source\\repos\\P3-Consumer\\wwwroot\\lib\\signalr\\signalr.min.js",
+      "PackagePath": "staticwebassets\\lib\\signalr\\signalr.min.js"
+    },
+    {
       "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.P3-Consumer.Microsoft.AspNetCore.StaticWebAssetEndpoints.props",
       "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssetEndpoints.props"
     },

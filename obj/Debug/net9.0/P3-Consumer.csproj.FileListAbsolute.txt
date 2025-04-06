@@ -31,3 +31,4 @@ C:\Users\vinni\source\repos\P3-Consumer\obj\Debug\net9.0\P3-Consumer.genruntimec
 C:\Users\vinni\source\repos\P3-Consumer\obj\Debug\net9.0\ref\P3-Consumer.dll
 C:\Users\vinni\source\repos\P3-Consumer\obj\Debug\net9.0\P3-Consumer.sourcelink.json
 C:\Users\vinni\source\repos\P3-Consumer\obj\Debug\net9.0\compressed\zruy5s14ok-dte0td2e03.gz
+C:\Users\vinni\source\repos\P3-Consumer\obj\Debug\net9.0\compressed\fvuio3nu0o-m3i9f6419i.gz

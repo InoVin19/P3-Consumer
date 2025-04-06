@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("P3-Consumer")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a490dfed74ef6e899c5f3984deb0a8ff2ea15844")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+dc26282af53fb1b87abac1a7d8f41607c4c8a965")]
 [assembly: System.Reflection.AssemblyProductAttribute("P3-Consumer")]
 [assembly: System.Reflection.AssemblyTitleAttribute("P3-Consumer")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

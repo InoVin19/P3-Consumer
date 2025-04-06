@@ -122,9 +122,46 @@
 </div>
 
 @section Scripts {
-    <script src="~/js/signalr/dist/browser/signalr.js"></script>
-    <script src="~/js/site.js"></script>
+    <script src="~/lib/signalr/signalr.min.js"></script>
     <script>
+        // Create connection to SignalR hub
+        const connection = new signalR.HubConnectionBuilder()
+            .withUrl("/videoHub")
+            .withAutomaticReconnect()
+            .build();
+
+        // Start the connection
+        connection.start().then(function () {
+            console.log("SignalR Connected");
+        }).catch(function (err) {
+            console.error(err.toString());
+        });
+
+        // Handle queue updates - refresh the page
+        connection.on("ReceiveQueueUpdate", function (queueSize, maxQueueSize) {
+            console.log(`Queue Update: ${queueSize}/${maxQueueSize}`);
+            // Update the queue size display without refreshing
+            document.getElementById("queueCount").textContent = queueSize;
+            document.getElementById("queueLimit").textContent = maxQueueSize;
+            
+            // Update the progress bar
+            const percentage = (queueSize / maxQueueSize) * 100;
+            const progressBar = document.querySelector(".progress-bar");
+            progressBar.style.width = `${percentage}%`;
+        });
+
+        // Handle video processed events - refresh the page
+        connection.on("ReceiveVideoProcessed", function (fileName, consumerId) {
+            console.log(`Video Processed: ${fileName} by Consumer ${consumerId}`);
+            // Refresh the page to show the new video
+            window.location.reload();
+        });
+
+        // Handle video dropped events - no need to refresh
+        connection.on("ReceiveVideoDropped", function (fileName) {
+            console.log(`Video Dropped: ${fileName}`);
+        });
+        
         // Inline script to handle video hover events
         document.addEventListener('DOMContentLoaded', function() {
             console.log("INLINE SCRIPT: DOM loaded");

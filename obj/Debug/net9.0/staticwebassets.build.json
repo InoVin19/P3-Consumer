@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "SmJQjgvIRjNeP4Cxc1EdimppH7dFUT8nCinE7mATXzQ=",
+  "Hash": "h1YsokJA60Xv/KJWtCXtKFGpimwTpRYuNh0idjP4dK0=",
   "Source": "P3-Consumer",
   "BasePath": "_content/P3-Consumer",
   "Mode": "Default",
@@ -36,6 +36,27 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "C:\\Users\\vinni\\source\\repos\\P3-Consumer\\wwwroot\\css\\site.css"
+    },
+    {
+      "Identity": "C:\\Users\\vinni\\source\\repos\\P3-Consumer\\obj\\Debug\\net9.0\\compressed\\fvuio3nu0o-m3i9f6419i.gz",
+      "SourceId": "P3-Consumer",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\vinni\\source\\repos\\P3-Consumer\\obj\\Debug\\net9.0\\compressed\\",
+      "BasePath": "_content/P3-Consumer",
+      "RelativePath": "lib/signalr/signalr.min#[.{fingerprint=m3i9f6419i}]?.js.gz",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Alternative",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "C:\\Users\\vinni\\source\\repos\\P3-Consumer\\wwwroot\\lib\\signalr\\signalr.min.js",
+      "AssetTraitName": "Content-Encoding",
+      "AssetTraitValue": "gzip",
+      "Fingerprint": "vrvdndxe3f",
+      "Integrity": "Gz0pd64viRNOqnRlggAKpFcMqdpCY5i0nsHOUICRIvA=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "C:\\Users\\vinni\\source\\repos\\P3-Consumer\\wwwroot\\lib\\signalr\\signalr.min.js"
     },
     {
       "Identity": "C:\\Users\\vinni\\source\\repos\\P3-Consumer\\obj\\Debug\\net9.0\\compressed\\zruy5s14ok-dte0td2e03.gz",
@@ -99,6 +120,27 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\js\\site.js"
+    },
+    {
+      "Identity": "C:\\Users\\vinni\\source\\repos\\P3-Consumer\\wwwroot\\lib\\signalr\\signalr.min.js",
+      "SourceId": "P3-Consumer",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\vinni\\source\\repos\\P3-Consumer\\wwwroot\\",
+      "BasePath": "_content/P3-Consumer",
+      "RelativePath": "lib/signalr/signalr.min#[.{fingerprint}]?.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "m3i9f6419i",
+      "Integrity": "4opyCjWbN8sBV1jVQ/kIcw7Vu+R42wlQa7aIfxgxNTg=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\lib\\signalr\\signalr.min.js"
     }
   ],
   "Endpoints": [
@@ -695,6 +737,304 @@
         {
           "Name": "integrity",
           "Value": "sha256-6xtM6y1Leqg0FFDbbWB43/zpu1oG5h1hRH1633MsfMc="
+        }
+      ]
+    },
+    {
+      "Route": "lib/signalr/signalr.min.js",
+      "AssetFile": "C:\\Users\\vinni\\source\\repos\\P3-Consumer\\obj\\Debug\\net9.0\\compressed\\fvuio3nu0o-m3i9f6419i.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.000071957977"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "13896"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Gz0pd64viRNOqnRlggAKpFcMqdpCY5i0nsHOUICRIvA=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 06 Apr 2025 17:38:34 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"4opyCjWbN8sBV1jVQ/kIcw7Vu+R42wlQa7aIfxgxNTg=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-4opyCjWbN8sBV1jVQ/kIcw7Vu+R42wlQa7aIfxgxNTg="
+        }
+      ]
+    },
+    {
+      "Route": "lib/signalr/signalr.min.js",
+      "AssetFile": "C:\\Users\\vinni\\source\\repos\\P3-Consumer\\wwwroot\\lib\\signalr\\signalr.min.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "47647"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"4opyCjWbN8sBV1jVQ/kIcw7Vu+R42wlQa7aIfxgxNTg=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 06 Apr 2025 17:38:34 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-4opyCjWbN8sBV1jVQ/kIcw7Vu+R42wlQa7aIfxgxNTg="
+        }
+      ]
+    },
+    {
+      "Route": "lib/signalr/signalr.min.js.gz",
+      "AssetFile": "C:\\Users\\vinni\\source\\repos\\P3-Consumer\\obj\\Debug\\net9.0\\compressed\\fvuio3nu0o-m3i9f6419i.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "13896"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Gz0pd64viRNOqnRlggAKpFcMqdpCY5i0nsHOUICRIvA=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 06 Apr 2025 17:38:34 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-Gz0pd64viRNOqnRlggAKpFcMqdpCY5i0nsHOUICRIvA="
+        }
+      ]
+    },
+    {
+      "Route": "lib/signalr/signalr.min.m3i9f6419i.js",
+      "AssetFile": "C:\\Users\\vinni\\source\\repos\\P3-Consumer\\obj\\Debug\\net9.0\\compressed\\fvuio3nu0o-m3i9f6419i.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.000071957977"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "13896"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Gz0pd64viRNOqnRlggAKpFcMqdpCY5i0nsHOUICRIvA=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 06 Apr 2025 17:38:34 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"4opyCjWbN8sBV1jVQ/kIcw7Vu+R42wlQa7aIfxgxNTg=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "m3i9f6419i"
+        },
+        {
+          "Name": "label",
+          "Value": "lib/signalr/signalr.min.js"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-4opyCjWbN8sBV1jVQ/kIcw7Vu+R42wlQa7aIfxgxNTg="
+        }
+      ]
+    },
+    {
+      "Route": "lib/signalr/signalr.min.m3i9f6419i.js",
+      "AssetFile": "C:\\Users\\vinni\\source\\repos\\P3-Consumer\\wwwroot\\lib\\signalr\\signalr.min.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "47647"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"4opyCjWbN8sBV1jVQ/kIcw7Vu+R42wlQa7aIfxgxNTg=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 06 Apr 2025 17:38:34 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "m3i9f6419i"
+        },
+        {
+          "Name": "label",
+          "Value": "lib/signalr/signalr.min.js"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-4opyCjWbN8sBV1jVQ/kIcw7Vu+R42wlQa7aIfxgxNTg="
+        }
+      ]
+    },
+    {
+      "Route": "lib/signalr/signalr.min.m3i9f6419i.js.gz",
+      "AssetFile": "C:\\Users\\vinni\\source\\repos\\P3-Consumer\\obj\\Debug\\net9.0\\compressed\\fvuio3nu0o-m3i9f6419i.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "13896"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Gz0pd64viRNOqnRlggAKpFcMqdpCY5i0nsHOUICRIvA=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 06 Apr 2025 17:38:34 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "m3i9f6419i"
+        },
+        {
+          "Name": "label",
+          "Value": "lib/signalr/signalr.min.js.gz"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-Gz0pd64viRNOqnRlggAKpFcMqdpCY5i0nsHOUICRIvA="
         }
       ]
     }
