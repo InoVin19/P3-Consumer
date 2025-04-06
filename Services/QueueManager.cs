@@ -9,7 +9,7 @@ namespace Consumer.Services
 {
     public class QueueManager
     {
-        private readonly BlockingCollection<VideoUpload> _queue;
+        private ConcurrentQueue<VideoUpload> _queue;
         private readonly ILogger<QueueManager> _logger;
         private readonly SemaphoreSlim _queueSemaphore;
         private int _maxQueueSize;
@@ -18,34 +18,75 @@ namespace Consumer.Services
         {
             _logger = logger;
             _maxQueueSize = 10; // Default, will be updated from config
-            _queue = new BlockingCollection<VideoUpload>(_maxQueueSize);
+            _queue = new ConcurrentQueue<VideoUpload>();
             _queueSemaphore = new SemaphoreSlim(1, 1);
+            
+            LogMessage("QueueManager initialized with default queue limit of 10", LogLevel.Information);
         }
 
         public void SetMaxQueueSize(int maxSize)
         {
             _maxQueueSize = maxSize;
-            _logger.LogInformation($"Queue limit set to {maxSize}");
+            LogMessage($"*** QUEUE LIMIT EXPLICITLY SET TO {maxSize} ***", LogLevel.Information);
+        }
+
+        // Helper method to log both to console and logger
+        private void LogMessage(string message, LogLevel level)
+        {
+            Console.WriteLine(message);
+            
+            switch (level)
+            {
+                case LogLevel.Information:
+                    _logger.LogInformation(message);
+                    break;
+                case LogLevel.Warning:
+                    _logger.LogWarning(message);
+                    break;
+                case LogLevel.Error:
+                    _logger.LogError(message);
+                    break;
+                default:
+                    _logger.LogInformation(message);
+                    break;
+            }
         }
 
         public bool TryEnqueue(VideoUpload videoUpload)
         {
-            // Implement leaky bucket - if queue is full, drop the item
-            if (_queue.Count >= _maxQueueSize)
-            {
-                _logger.LogWarning($"Queue full, dropping video: {videoUpload.Metadata.FileName}");
-                return false;
-            }
-
             try
             {
-                _queue.Add(videoUpload);
-                _logger.LogInformation($"Video added to queue: {videoUpload.Metadata.FileName}");
-                return true;
+                // Acquire semaphore to ensure thread safety when checking queue size
+                _queueSemaphore.Wait();
+                
+                try
+                {
+                    // Check current queue size against limit
+                    int currentCount = _queue.Count;
+                    LogMessage($"Current queue size: {currentCount}/{_maxQueueSize}", LogLevel.Information);
+                    
+                    // Implement leaky bucket - if queue is full, drop the item
+                    if (currentCount >= _maxQueueSize)
+                    {
+                        LogMessage($"*** QUEUE FULL: {currentCount}/{_maxQueueSize} - Dropping video: {videoUpload.Metadata.FileName} ***", LogLevel.Warning);
+                        return false;
+                    }
+                    
+                    // Add to queue
+                    _queue.Enqueue(videoUpload);
+                    LogMessage($"Video added to queue: {videoUpload.Metadata.FileName}, new queue size: {_queue.Count}/{_maxQueueSize}", LogLevel.Information);
+                    return true;
+                }
+                finally
+                {
+                    // Release semaphore
+                    _queueSemaphore.Release();
+                }
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, $"Error adding video to queue: {videoUpload.Metadata.FileName}");
+                string errorMessage = $"Error adding video to queue: {videoUpload.Metadata.FileName}";
+                LogMessage($"{errorMessage}: {ex.Message}", LogLevel.Error);
                 return false;
             }
         }
@@ -54,11 +95,46 @@ namespace Consumer.Services
         {
             try
             {
-                // Try to take an item from the queue
-                if (_queue.TryTake(out var videoUpload, 1000, cancellationToken))
+                // Try to dequeue an item
+                while (!cancellationToken.IsCancellationRequested)
                 {
-                    _logger.LogInformation($"Video dequeued for processing: {videoUpload.Metadata.FileName}");
-                    return videoUpload;
+                    bool semaphoreAcquired = false;
+                    try
+                    {
+                        // Acquire semaphore to ensure thread safety
+                        await _queueSemaphore.WaitAsync(cancellationToken);
+                        semaphoreAcquired = true;
+                        
+                        // Check if queue is empty
+                        if (_queue.IsEmpty)
+                        {
+                            // Release semaphore and wait before trying again
+                            _queueSemaphore.Release();
+                            semaphoreAcquired = false;
+                            await Task.Delay(1000, cancellationToken);
+                            continue;
+                        }
+                        
+                        // Try to dequeue
+                        if (_queue.TryDequeue(out var videoUpload))
+                        {
+                            LogMessage($"Video dequeued for processing: {videoUpload.Metadata.FileName}, new queue size: {_queue.Count}/{_maxQueueSize}", LogLevel.Information);
+                            
+                            // Release semaphore before returning
+                            _queueSemaphore.Release();
+                            semaphoreAcquired = false;
+                            
+                            return videoUpload;
+                        }
+                    }
+                    finally
+                    {
+                        // Release semaphore if still acquired
+                        if (semaphoreAcquired)
+                        {
+                            _queueSemaphore.Release();
+                        }
+                    }
                 }
                 
                 return null;
@@ -69,7 +145,8 @@ namespace Consumer.Services
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error dequeuing video");
+                string errorMessage = "Error dequeuing video";
+                LogMessage($"{errorMessage}: {ex.Message}", LogLevel.Error);
                 return null;
             }
         }
@@ -81,6 +158,7 @@ namespace Consumer.Services
 
         public int GetMaxQueueSize()
         {
+            LogMessage($"GetMaxQueueSize called, returning: {_maxQueueSize}", LogLevel.Information);
             return _maxQueueSize;
         }
     }

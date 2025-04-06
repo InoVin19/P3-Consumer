@@ -106,6 +106,7 @@ namespace Consumer.Services
 
         private async Task ProcessClientAsync(TcpClient client, int consumerId, CancellationToken stoppingToken)
         {
+            Console.WriteLine($"Consumer {consumerId + 1} received connection from {client.Client.RemoteEndPoint}");
             _logger.LogInformation($"Consumer {consumerId + 1} received connection from {client.Client.RemoteEndPoint}");
             
             using (client)
@@ -130,6 +131,7 @@ namespace Consumer.Services
                     // Read video data
                     byte[] videoData = reader.ReadBytes(videoLength);
                     
+                    Console.WriteLine($"Consumer {consumerId + 1} received video: {metadata.FileName}, size: {videoData.Length / 1024} KB");
                     _logger.LogInformation($"Consumer {consumerId + 1} received video: {metadata.FileName}, size: {videoData.Length / 1024} KB");
                     
                     // Create video upload object
@@ -140,13 +142,21 @@ namespace Consumer.Services
                     };
                     
                     // Try to add to queue (leaky bucket implementation)
+                    Console.WriteLine($"Current queue size before enqueue attempt: {_queueManager.GetQueueCount()}/{_queueManager.GetMaxQueueSize()}");
                     if (!_queueManager.TryEnqueue(videoUpload))
                     {
-                        _logger.LogWarning($"Consumer {consumerId + 1} dropped video due to full queue: {metadata.FileName}");
+                        string dropMessage = $"*** DROPPED VIDEO: Consumer {consumerId + 1} dropped video due to full queue: {metadata.FileName} ***";
+                        Console.WriteLine(dropMessage);
+                        _logger.LogWarning(dropMessage);
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Video successfully added to queue: {metadata.FileName}");
                     }
                 }
                 catch (Exception ex)
                 {
+                    Console.WriteLine($"Error processing client connection for consumer {consumerId + 1}: {ex.Message}");
                     _logger.LogError(ex, $"Error processing client connection for consumer {consumerId + 1}");
                 }
             }

@@ -64,7 +64,7 @@ namespace Consumer.Services
                             videoUpload.ThreadId = consumerId;
                             
                             // Process and save the video
-                            await _videoStorageService.SaveVideoAsync(videoUpload);
+                            await ProcessVideoAsync(consumerId, videoUpload, cancellationToken);
                             _logger.LogInformation($"Consumer {consumerId} completed processing video: {videoUpload.Metadata?.FileName ?? "Unknown"}");
                         }
                         catch (Exception ex)
@@ -89,6 +89,25 @@ namespace Consumer.Services
             }
             
             _logger.LogInformation($"Consumer {consumerId} stopped");
+        }
+
+        private async Task ProcessVideoAsync(int consumerId, VideoUpload videoUpload, CancellationToken cancellationToken)
+        {
+            try
+            {
+                _logger.LogInformation($"Consumer {consumerId} processing video: {videoUpload.Metadata.FileName}");
+
+                // Simulate processing time (10 seconds) to allow queue to fill up
+                await Task.Delay(10000, cancellationToken);
+                
+                // Save video
+                await _videoStorageService.SaveVideoAsync(videoUpload);
+                _logger.LogInformation($"Consumer {consumerId} completed processing video: {videoUpload.Metadata.FileName}");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"Error processing video: {videoUpload.Metadata.FileName}");
+            }
         }
 
         public void StopConsumers()
