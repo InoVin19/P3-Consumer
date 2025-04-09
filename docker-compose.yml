@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  p3-consumer:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+      # Map a range of ports to support multiple consumers
+      - "9000-9010:9000-9010"
+    volumes:
+      - ./videos:/app/videos
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+    restart: unless-stopped

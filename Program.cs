@@ -7,6 +7,9 @@ using Microsoft.Extensions.Hosting;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Configure Kestrel to listen on all interfaces for Docker
+builder.WebHost.UseUrls("http://*:5000");
+
 // Add services to the container
 builder.Services.AddLogging();
 builder.Services.AddControllersWithViews();
